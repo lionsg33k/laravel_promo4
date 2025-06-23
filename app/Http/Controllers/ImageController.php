@@ -13,13 +13,11 @@ class ImageController extends Controller
     public function index()
     {
         $allImages = Imager::all();
-        return view("imageDownloader" , compact("allImages"));
+        return view("imageDownloader", compact("allImages"));
     }
 
     public function store(Request $request)
     {
-
-
         $request->validate([
             "imageUrl" => 'required|url'
         ]);
@@ -31,6 +29,12 @@ class ImageController extends Controller
 
         $fileName = hash("sha256", $file) . time() . "." . $extension; // generate a  unoque name
 
+        if ($extension == "pdf") {
+            # code...
+            return back()->with("error" , "pdf not accepted");
+            
+        }
+
         Storage::disk("public")->put("images/{$fileName}", $file); // bach n storih fl projet
 
         // insert 
@@ -38,8 +42,8 @@ class ImageController extends Controller
         Imager::create([
             "url" => $fileName
         ]);
-
-        flash()->info("kolchi chwya mzn");
-        return back();
+        // flasher  php   -  
+        // flash()->success("kolchi chwya mzn");
+        return back()->with("success" , "all good");
     }
 }

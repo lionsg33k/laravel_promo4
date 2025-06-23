@@ -29,6 +29,8 @@ class StudentController extends Controller
         ]);
 
 
+
+
         Student::create([
             "name" => $request->fullName,
             "age" => $request->age,
@@ -36,7 +38,7 @@ class StudentController extends Controller
         ]);
 
 
-        return back();
+        return back()->with("success", "kolchi mzn");
     }
 
 
@@ -76,6 +78,5 @@ class StudentController extends Controller
     {
 
         $student->delete();
-
     }
 }
