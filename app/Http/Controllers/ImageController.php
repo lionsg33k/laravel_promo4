@@ -39,6 +39,7 @@ class ImageController extends Controller
             "url" => $fileName
         ]);
 
+        flash()->info("kolchi chwya mzn");
         return back();
     }
 }
