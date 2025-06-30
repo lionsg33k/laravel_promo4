@@ -31,8 +31,7 @@ class ImageController extends Controller
 
         if ($extension == "pdf") {
             # code...
-            return back()->with("error" , "pdf not accepted");
-            
+            return back()->with("error", "pdf not accepted");
         }
 
         Storage::disk("public")->put("images/{$fileName}", $file); // bach n storih fl projet
@@ -44,6 +43,27 @@ class ImageController extends Controller
         ]);
         // flasher  php   -  
         // flash()->success("kolchi chwya mzn");
-        return back()->with("success" , "all good");
+        return back()->with("success", "all good");
+    }
+
+
+    public function storeFile(Request $request)
+    {
+
+        // dd($request->all());
+        $request->validate([
+            "file" => "required|mimes:png,jpg,svg|max:2048"
+        ]);
+
+        $path = $request->file("file")->store("images" , "public");
+
+        // dd($path);
+
+        Imager::create([
+            "url" => $path
+        ]);
+        
+
+        return back()->with("success" , "All good");
     }
 }

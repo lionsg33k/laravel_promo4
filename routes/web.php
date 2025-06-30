@@ -25,3 +25,4 @@ Route::delete("/student/destroy/{student}" , [StudentController::class , "destro
 
 Route::get("/imager" , [ImageController::class , "index"])->name("imager.index");
 Route::post("/imager/store" , [ImageController::class , "store"])->name("imager.store");
+Route::post("/imager/store/file" , [ImageController::class , "storeFile"])->name("imager.storeFile");
